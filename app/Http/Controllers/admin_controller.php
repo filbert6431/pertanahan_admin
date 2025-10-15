@@ -26,6 +26,7 @@ class admin_controller extends Controller
         'nomor' => request ('nomor'),
         'keterangan' => request ('keterangan'),
     ];
+    
 
     return view ('proses-input', compact('data_dokumen'));
     }
