@@ -111,6 +111,8 @@
             </div>
         </div>
     </div>
+    <div class="d-flex justify-content-center mt-3">
+</div>
 
 </main>
 {{-- end main content --}}

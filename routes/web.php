@@ -1,9 +1,12 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\admincontroller;
-use App\Http\Controllers\AuthController;
+use App\Http\Controllers\authController;
 use App\http\Controllers\PageController;
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\PersilController;
+use App\Http\Controllers\WargaController;
+
 Route::get('/', function () {
     return view('welcome');
 });
@@ -12,11 +15,14 @@ Route::get('/', function () {
 route::get ('/form input', [admin_controller::class, 'forminput']);
 route::post('/tampilan', [admin_controller::class, 'hasil_inputan'])->name('tampilan');
 
-Route::get('/auth/form_login',[\App\Http\Controllers\AuthController::class, 'index'])
-->name('halaman-login');
+// show login form (uses admin/login view)
+Route::get('/auth/form_login', [authController::class, 'index'])->name('halaman-login');
 
-route::post('/auth/proses-login', [\App\Http\Controllers\AuthController::class, 'login'])
-->name('login-siap');
+// process login (posts to this route)
+Route::post('/auth/proses-login', [authController::class, 'login'])->name('login-siap');
+
+// logout for this simple flow
+Route::post('/auth/logout', [authController::class, 'logout'])->name('auth.logout');
 
 
 // halaman utama
@@ -33,6 +39,8 @@ Route::get('/blank', [PageController::class, 'blank'])->name('blank');
 Route::get('/404', [PageController::class, 'error404'])->name('404');
 
 // route form
-route::resource('/admin', AdminController::class);
-route::resource('/persil', PageController::class);
-route::resource('/warga', PageController::class);
+Route::resource('admin', AdminController::class);
+Route::resource('persil', PersilController::class);
+Route::resource('warga', WargaController::class);
+
+// untuk mengakses login pergi ke pertanahan_admin/auth/form_login

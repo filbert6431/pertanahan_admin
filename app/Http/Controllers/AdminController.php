@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 use App\Models\Admin; // ini jangan lupa
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+
 
 class AdminController extends Controller
 {
@@ -29,6 +31,16 @@ public function index()
      */
     public function store(Request $request)
     {
+    $validated = $request->validate([
+        'name' => 'required|string|max:100',
+        'email' => 'required|email|unique:admin,email',
+        'password' => 'required|min:6',
+
+        ]);
+
+        // 🔹 Hash password sebelum disimpan
+        $validated['password'] = Hash::make($request->password);
+
         // dd($request->all());
         $data['name'] = $request->name;
         $data['email'] = $request->email;
@@ -53,7 +65,8 @@ public function index()
      */
     public function edit(Admin $admin)
     {
-        //
+    $data['dataAdmin'] = Admin::findOrFail($admin->admin_id);
+    return view('admin.form.form-admin.edit', $data);
     }
 
     /**
@@ -62,11 +75,20 @@ public function index()
 public function update(Request $request, Admin $admin)
 {
     // Validasi input (opsional tapi direkomendasikan)
-    $request->validate([
-        'name' => 'required|string|max:255',
-        'email' => 'required|email|max:255',
+ $admin = \App\Models\Admin::findOrFail($id);
+
+    $data = $request->validate([
+        'name' => 'required',
+        'email' => 'required|email|unique:admins,email,'.$id,
+        'password' => 'nullable|min:6', // bisa kosong
     ]);
 
+    // Jika user isi password baru, maka di-hash
+    if ($request->filled('password')) {
+        $data['password'] = Hash::make($request->password);
+    } else {
+        unset($data['password']); // biar password lama tidak kehapus
+    }
     // Update data admin
     $admin->name = $request->name;
     $admin->email = $request->email;
@@ -83,6 +105,9 @@ public function update(Request $request, Admin $admin)
      */
     public function destroy(Admin $admin)
     {
-        //
+        $admin = Admin::findOrFail($admin->admin_id);
+
+        $admin->delete();
+        return redirect()->route('admin.index')->with('success', 'Data Berhasil Dihapus');
     }
 }

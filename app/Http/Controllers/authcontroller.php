@@ -3,92 +3,51 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-   return view('halaman_login');
-    }
+	// show login form (placed under resources/views/admin/)
+	public function index()
+	{
+		return view('admin.login');
+	}
 
-    public function login(Request $request)
-{
-    // semua data form
-    //dd($request->all());
+	// process login form posted to /auth/proses-login
+	public function login(Request $request)
+	{
+		$request->validate([
+			'email' => 'required|email',
+			'password' => 'required',
+		]);
 
-    // ambil spesifik input
-    $username = $request->input('username');
-    $password = $request->input('password');
+		$email = $request->input('email');
+		$password = $request->input('password');
 
-    $data['nama'] = $request->nama;
-    $data['password'] = $request->password;
+		// read from 'warga' table (adjust if your admin table differs)
+		$user = DB::table('warga')->where('email', $email)->first();
 
-        $request->validate([
-            'nama'  =>[
-            'required',
-            'max:10',
-          'regex:/[A-Z]/'],
+		if ($user && isset($user->password) && Hash::check($password, $user->password)) {
+			// store minimal admin info in session
+			$request->session()->put('admin', [
+				'id' => $user->warga_id ?? $user->id ?? null,
+				'email' => $user->email,
+				'name' => $user->nama ?? $user->name ?? null,
+			]);
+			$request->session()->regenerate();
+			return redirect()->intended('/dashboard');
+		}
 
-            'password' => 'required|min:3'
-        ], [
-        'nama.required' => 'hatimu tidak boleh kosong',
-        'nama.regex' => 'nama harus mengandung minimal satu huruf kapital',
-        'password.required' => 'password tidak boleh kosong'
+		return back()->withInput($request->only('email'))
+		             ->withErrors(['email' => 'Credentials do not match our records.']);
+	}
 
-        ]);
-
-
-
-        return view('selamat_login', $data);
-}
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
-    }
+	// logout (clears admin session)
+	public function logout(Request $request)
+	{
+		$request->session()->forget('admin');
+		$request->session()->regenerateToken();
+		return redirect('/');
+	}
 }
