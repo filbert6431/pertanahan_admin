@@ -29,6 +29,7 @@ class Warga extends Model
 		'agama',
 		'pekerjaan',
 		'no_hp',
+		'no_ktp',
 	];
 
 	/**

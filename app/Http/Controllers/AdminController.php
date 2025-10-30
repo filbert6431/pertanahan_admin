@@ -14,7 +14,7 @@ class AdminController extends Controller
 public function index()
 {
     $dataAdmin = Admin::all();
-    return view('admin.form.form-admin.index', compact('dataAdmin'));
+    return view('admin.Pages.form-admin.index', compact('dataAdmin'));
 }
 
 
@@ -23,7 +23,7 @@ public function index()
      */
     public function create()
     {
-          	return view('admin.form.form-admin.create');
+          	return view('admin.Pages.form-admin.create');
     }
 
     /**
@@ -35,22 +35,20 @@ public function index()
         'name' => 'required|string|max:100',
         'email' => 'required|email|unique:admin,email',
         'password' => 'required|min:6',
+    ]);
 
-        ]);
+    // Hash password sebelum disimpan
+    $validated['password'] = Hash::make($validated['password']);
 
-        // 🔹 Hash password sebelum disimpan
-        $validated['password'] = Hash::make($request->password);
+    // Buat admin lewat model (pastikan Admin::$fillable mencakup name,email,password)
+    Admin::create([
+        'name' => $validated['name'],
+        'email' => $validated['email'],
+        'password' => $validated['password'],
+    ]);
 
-        // dd($request->all());
-        $data['name'] = $request->name;
-        $data['email'] = $request->email;
-        $data['password'] = $request->password;
-
-        admin::create($data);
-
-          return redirect()->route('admin.index')->with('success', 'Data Berhasil Diupdate');
-
-    }
+    return redirect()->route('admin.index')->with('success', 'Data Berhasil Ditambahkan');
+}
 
     /**
      * Display the specified resource.
@@ -65,8 +63,8 @@ public function index()
      */
     public function edit(Admin $admin)
     {
-    $data['dataAdmin'] = Admin::findOrFail($admin->admin_id);
-    return view('admin.form.form-admin.edit', $data);
+        // gunakan route-model-binding langsung
+        return view('admin.Pages.form-admin.edit', ['dataAdmin' => $admin]);
     }
 
     /**
@@ -74,29 +72,23 @@ public function index()
      */
 public function update(Request $request, Admin $admin)
 {
-    // Validasi input (opsional tapi direkomendasikan)
- $admin = \App\Models\Admin::findOrFail($id);
-
+    // Validasi input, gunakan id dari $admin untuk rule unique
     $data = $request->validate([
-        'name' => 'required',
-        'email' => 'required|email|unique:admins,email,'.$id,
-        'password' => 'nullable|min:6', // bisa kosong
+        'name' => 'required|string|max:100',
+        'email' => 'required|email|unique:admin,email,' . $admin->admin_id . ',admin_id',
+        'password' => 'nullable|min:6',
     ]);
 
-    // Jika user isi password baru, maka di-hash
+    // Jika user isi password baru, maka di-hash; jika tidak, jangan ubah password
     if ($request->filled('password')) {
-        $data['password'] = Hash::make($request->password);
+        $data['password'] = Hash::make($data['password']);
     } else {
-        unset($data['password']); // biar password lama tidak kehapus
+        unset($data['password']);
     }
-    // Update data admin
-    $admin->name = $request->name;
-    $admin->email = $request->email;
 
-    // Simpan perubahan
-    $admin->save();
+    // Update model
+    $admin->update($data);
 
-    // Redirect dengan pesan sukses
     return redirect()->route('admin.index')->with('success', 'Data Berhasil Diupdate');
 }
 
@@ -105,8 +97,7 @@ public function update(Request $request, Admin $admin)
      */
     public function destroy(Admin $admin)
     {
-        $admin = Admin::findOrFail($admin->admin_id);
-
+        // Hapus lewat model yang sudah di-bind
         $admin->delete();
         return redirect()->route('admin.index')->with('success', 'Data Berhasil Dihapus');
     }

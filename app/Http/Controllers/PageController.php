@@ -7,34 +7,34 @@ use Illuminate\Http\Request;
 class PageController extends Controller
 {
      public function index() {
-        return view('admin/index');
+        return view('admin.pages.index');
     }
 
     public function form() {
-        return view('admin/form');
+        return view('admin.pages.form');
     }
 
     public function table() {
-        return view('admin/table');
+        return view('admin.pages.table');
     }
 
     public function chart() {
-        return view('admin/chart');
+        return view('admin.pages.chart');
     }
 
     public function signin() {
-        return view('admin/signin');
+        return view('admin.pages.signin');
     }
 
     public function signup() {
-        return view('admin/signup');
+        return view('admin.pages.signup');
     }
 
     public function blank() {
-        return view('admin/blank');
+        return view('admin.pages.blank');
     }
 
     public function error404() {
-        return view('admin/404');
+        return view('admin.pages.404');
     }
 }

@@ -1,4 +1,4 @@
-   <div class="sidebar pe-4 pb-3">
+<div class="sidebar pe-4 pb-3">
             <nav class="navbar bg-secondary navbar-dark">
                 <a href="{{ url('/index') }}" class="navbar-brand mx-4 mb-3">
                     <h3 class="text-primary"><i class="fa fa-user-edit me-2"></i>DarkPan</h3>
@@ -42,6 +42,9 @@
                     <a href="{{ url('/table') }}" class="nav-item nav-link"><i class="fa fa-table me-2"></i>Tables</a>
                     <a href="{{ url('/chart') }}" class="nav-item nav-link"><i
                             class="fa fa-chart-bar me-2"></i>Charts</a>
+                                                <a href="javascript:void(0)" onclick="document.getElementById('logout-form').submit();" class="nav-link">
+    <i class="fa fa-sign-out-alt me-2"></i>Logout
+</a>
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i
                                 class="far fa-file-alt me-2"></i>Pages</a>

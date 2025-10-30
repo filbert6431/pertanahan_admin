@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use App\Models\Warga; // ini jangan lupa
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class WargaController extends Controller
 {
@@ -12,7 +13,7 @@ class WargaController extends Controller
     public function index()
     {
         $dataWarga = Warga::paginate(5);
-        return view('admin.form.warga.warga-index', compact('dataWarga'));
+        return view('admin.Pages.warga.index', compact('dataWarga'));
     }
 
     /**
@@ -20,7 +21,7 @@ class WargaController extends Controller
      */
     public function create()
     {
-        return view('admin.form.warga.warga-create');
+        return view('admin.Pages.warga.create');
     }
 
     /**
@@ -36,7 +37,27 @@ class WargaController extends Controller
     $data['no_hp'] = $request->no_hp;
     $data['email'] = $request->email;
 
-    Warga::create($data);
+    $data = $request->validate([
+        'nama' => 'required|string|max:255',
+        'jenis_kelamin' => 'nullable|string|max:50',
+        'agama' => 'nullable|string|max:50',
+        'pekerjaan' => 'nullable|string|max:100',
+        'no_hp' => 'nullable|string|max:50',
+        'email' => 'nullable|email|max:255',
+        'no_ktp' => 'nullable|string|max:255|unique:warga,no_ktp',
+    ]);
+
+    DB::table('warga')->insert([
+        'nama' => $data['nama'],
+        'jenis_kelamin' => $data['jenis_kelamin'] ?? null,
+        'agama' => $data['agama'] ?? null,
+        'pekerjaan' => $data['pekerjaan'] ?? null,
+        'no_hp' => $data['no_hp'] ?? null,
+        'email' => $data['email'] ?? null,
+        'no_ktp' => $data['no_ktp'] ?? null,
+        'created_at' => now(),
+        'updated_at' => now(),
+    ]);
 
       return redirect()->route('warga.index')->with('success', 'Data Berhasil Diupdate');
     }
@@ -55,35 +76,37 @@ class WargaController extends Controller
     public function edit(string $id)
     {
         $data['dataWarga'] = Warga::findOrFail($id);
-        return view('admin.form.warga.warga-edit', $data);
+        return view('admin.Pages.warga.edit', $data);
     }
 
     /**
      * Update the specified resource in storage.
      */
-public function update(Request $request, Warga $warga)
+public function update(Request $request, $no_ktp)
 {
-    $validated = $request->validate([
-        'no_ktp' => 'required|string|unique:wargas,no_ktp,' ,
-        'nama' => 'required|string|max:40',
-        'jenis_kelamin' => 'required|string',
-        'agama' => 'required|string',
-        'pekerjaan' => 'required|string 15',
-        'no_hp' => 'required|string 15',
-        'email' => 'required|email|unique:wargas,email,' ,
+    $data = $request->validate([
+        'nama' => 'required|string|max:255',
+        'no_ktp' => 'required|string|max:255|unique:warga,no_ktp,' . $no_ktp . ',no_ktp',
+        'jenis_kelamin' => 'nullable|string|max:50',
+        'agama' => 'nullable|string|max:50',
+        'pekerjaan' => 'nullable|string|max:100',
+        'no_hp' => 'nullable|string|max:50',
+        'email' => 'nullable|email|max:255|unique:warga,email,' . $no_ktp . ',no_ktp',
     ]);
 
-    $warga->no_ktp = $request->no_ktp;
-    $warga->nama = $request->nama;
-    $warga->jenis_kelamin = $request->jenis_kelamin;
-    $warga->agama = $request->agama;
-    $warga->pekerjaan = $request->pekerjaan;
-    $warga->no_hp = $request->no_hp;
-    $warga->email = $request->email;
-    $warga->save();
+    DB::table('warga')->where('no_ktp', $no_ktp)->update([
+        'nama' => $data['nama'],
+        'jenis_kelamin' => $data['jenis_kelamin'] ?? null,
+        'agama' => $data['agama'] ?? null,
+        'pekerjaan' => $data['pekerjaan'] ?? null,
+        'no_hp' => $data['no_hp'] ?? null,
+        'email' => $data['email'] ?? null,
+        'updated_at' => now(),
+    ]);
 
     return redirect()->route('warga.index')->with('success', 'Data Berhasil Diupdate');
 }
+
 
 
 

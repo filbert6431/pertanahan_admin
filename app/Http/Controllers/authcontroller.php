@@ -11,7 +11,7 @@ class AuthController extends Controller
 	// show login form (placed under resources/views/admin/)
 	public function index()
 	{
-		return view('admin.login');
+		return view('admin.pages.login');
 	}
 
 	// process login form posted to /auth/proses-login
@@ -26,12 +26,12 @@ class AuthController extends Controller
 		$password = $request->input('password');
 
 		// read from 'warga' table (adjust if your admin table differs)
-		$user = DB::table('warga')->where('email', $email)->first();
+		$user = DB::table('admin')->where('email', $email)->first();
 
 		if ($user && isset($user->password) && Hash::check($password, $user->password)) {
 			// store minimal admin info in session
 			$request->session()->put('admin', [
-				'id' => $user->warga_id ?? $user->id ?? null,
+
 				'email' => $user->email,
 				'name' => $user->nama ?? $user->name ?? null,
 			]);

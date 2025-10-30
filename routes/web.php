@@ -7,13 +7,10 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\PersilController;
 use App\Http\Controllers\WargaController;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/',[authController::class, 'index'])->name('login-siap');
 
-
-route::get ('/form input', [admin_controller::class, 'forminput']);
-route::post('/tampilan', [admin_controller::class, 'hasil_inputan'])->name('tampilan');
+route::get ('/form input', [AdminController::class, 'forminput']);
+route::post('/tampilan', [AdminController::class, 'hasil_inputan'])->name('tampilan');
 
 // show login form (uses admin/login view)
 Route::get('/auth/form_login', [authController::class, 'index'])->name('halaman-login');
@@ -22,12 +19,12 @@ Route::get('/auth/form_login', [authController::class, 'index'])->name('halaman-
 Route::post('/auth/proses-login', [authController::class, 'login'])->name('login-siap');
 
 // logout for this simple flow
-Route::post('/auth/logout', [authController::class, 'logout'])->name('auth.logout');
+Route::post('/auth/logout', [AuthController::class, 'logout'])->name('auth.logout');
 
 
 // halaman utama
 Route::get('/dashboard', function () {
-    return view('admin/index');
+    return view('admin.Pages.index');
 })->name('dashboard');
 
 // halaman sidebar
