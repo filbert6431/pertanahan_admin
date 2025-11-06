@@ -20,19 +20,19 @@
 
 <head>
     <!-- start css -->
-    @include('admin.Layout-admin.css')
+    @include('Layout-admin.css')
     <!-- end css -->
 </head>
 
 <body>
     {{-- start sidebar --}}
-    @include('admin.layout-admin.sidebar')
+    @include('layout-admin.sidebar')
     {{-- end sidebar --}}
 
 
     <main class="content">
         {{-- start header --}}
-        @include('admin.layout-admin.header')
+        @include('layout-admin.header')
         {{-- end header --}}
 
 
@@ -43,11 +43,11 @@
         <!-- Core -->
 
         {{-- start footer  --}}
-        @include('admin.layout-admin.footer')
+        @include('layout-admin.footer')
     </main>
     <!-- end footer -->
 
-    @include('admin.layout-admin.js')
+    @include('layout-admin.js')
     {{-- end js --}}
 </body>
 

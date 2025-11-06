@@ -1,4 +1,4 @@
-@extends('admin.Layout-admin.app')
+@extends('Layout-admin.app')
 
 @section('content')
 <!-- Sign In Start -->

@@ -12,14 +12,14 @@ class PersilController extends Controller
     {
         // ambil semua data persil + nama warga (relasi)
         $dataPersil = Persil::with('pemilik')->get();
-        return view('admin.Pages.persil.index', compact('dataPersil'));
+        return view('Pages.persil.index', compact('dataPersil'));
     }
 
     public function create()
     {
         // ambil semua warga untuk dropdown di form create
         $wargaList = Warga::all();
-        return view('admin.Pages.persil.create', compact('wargaList'));
+        return view('Pages.persil.create', compact('wargaList'));
     }
 
     public function store(Request $request)
@@ -43,7 +43,7 @@ class PersilController extends Controller
     {
         $dataPersil = Persil::findOrFail($id);
         $wargaList = Warga::all();
-        return view('admin.Pages.persil.edit', compact('dataPersil', 'wargaList'));
+        return view('Pages.persil.edit', compact('dataPersil', 'wargaList'));
     }
 
     public function update(Request $request, $id)

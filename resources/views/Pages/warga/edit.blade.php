@@ -1,4 +1,4 @@
-@extends('admin.Layout-admin.app')
+@extends('Layout-admin.app')
 
 @section('content')
     <!-- Form Tambah Warga Start -->
@@ -14,7 +14,7 @@
                                 <i class="fa fa-user-edit me-2"></i>DarkPan
                             </h3>
                         </a>
-                        <h3 class="mb-0">Buat Akun Warga</h3>
+                        <h3 class="mb-0">Edit Akun Warga</h3>
                     </div>
 
                     {{-- Form Start --}}

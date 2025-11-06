@@ -14,7 +14,7 @@ class AdminController extends Controller
 public function index()
 {
     $dataAdmin = Admin::all();
-    return view('admin.Pages.form-admin.index', compact('dataAdmin'));
+    return view('Pages.form-admin.index', compact('dataAdmin'));
 }
 
 
@@ -23,7 +23,7 @@ public function index()
      */
     public function create()
     {
-          	return view('admin.Pages.form-admin.create');
+          	return view('Pages.form-admin.create');
     }
 
     /**
@@ -47,7 +47,7 @@ public function index()
         'password' => $validated['password'],
     ]);
 
-    return redirect()->route('admin.index')->with('success', 'Data Berhasil Ditambahkan');
+    return redirect()->route('pages.index')->with('success', 'Data Berhasil Ditambahkan');
 }
 
     /**
@@ -64,7 +64,7 @@ public function index()
     public function edit(Admin $admin)
     {
         // gunakan route-model-binding langsung
-        return view('admin.Pages.form-admin.edit', ['dataAdmin' => $admin]);
+        return view('Pages.form-admin.edit', ['dataAdmin' => $admin]);
     }
 
     /**
@@ -89,7 +89,7 @@ public function update(Request $request, Admin $admin)
     // Update model
     $admin->update($data);
 
-    return redirect()->route('admin.index')->with('success', 'Data Berhasil Diupdate');
+    return redirect()->route('Pages.index')->with('success', 'Data Berhasil Diupdate');
 }
 
     /**
@@ -99,6 +99,6 @@ public function update(Request $request, Admin $admin)
     {
         // Hapus lewat model yang sudah di-bind
         $admin->delete();
-        return redirect()->route('admin.index')->with('success', 'Data Berhasil Dihapus');
+        return redirect()->route('Pages.index')->with('success', 'Data Berhasil Dihapus');
     }
 }

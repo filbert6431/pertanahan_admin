@@ -11,7 +11,7 @@ class AuthController extends Controller
 	// show login form (placed under resources/views/admin/)
 	public function index()
 	{
-		return view('admin.pages.login');
+		return view('pages.login');
 	}
 
 	// process login form posted to /auth/proses-login

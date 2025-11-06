@@ -1,5 +1,5 @@
 
-@extends('admin.Layout-admin.app')
+@extends('Layout-admin.app')
 
 @section('content')
 <!-- Form Edit Persil Start -->

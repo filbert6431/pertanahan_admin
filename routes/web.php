@@ -24,16 +24,10 @@ Route::post('/auth/logout', [AuthController::class, 'logout'])->name('auth.logou
 
 // halaman utama
 Route::get('/dashboard', function () {
-    return view('admin.Pages.index');
+    return view('Pages.index');
 })->name('dashboard');
 
 // halaman sidebar
-Route::get('/table', [PageController::class, 'table'])->name('table');
-Route::get('/chart', [PageController::class, 'chart'])->name('chart');
-Route::get('/signin', [PageController::class, 'signin'])->name('signin');
-Route::get('/signup', [PageController::class, 'signup'])->name('signup');
-Route::get('/blank', [PageController::class, 'blank'])->name('blank');
-Route::get('/404', [PageController::class, 'error404'])->name('404');
 
 // route form
 Route::resource('admin', AdminController::class);
