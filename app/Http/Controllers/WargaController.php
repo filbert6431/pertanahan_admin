@@ -13,7 +13,7 @@ class WargaController extends Controller
     public function index()
     {
         $dataWarga = Warga::paginate(5);
-        return view('Pages.warga.index', compact('dataWarga'));
+        return view('pages.warga.index', compact('dataWarga'));
     }
 
     /**
@@ -21,7 +21,7 @@ class WargaController extends Controller
      */
     public function create()
     {
-        return view('Pages.warga.create');
+        return view('pages.warga.create');
     }
 
     /**
@@ -76,25 +76,25 @@ class WargaController extends Controller
     public function edit(string $id)
     {
         $data['dataWarga'] = Warga::findOrFail($id);
-        return view('Pages.warga.edit', $data);
+        return view('pages.warga.edit', $data);
     }
 
     /**
      * Update the specified resource in storage.
      */
-public function update(Request $request, $no_ktp)
+public function update(Request $request, $warga_id)
 {
     $data = $request->validate([
         'nama' => 'required|string|max:255',
-        'no_ktp' => 'required|string|max:255|unique:warga,no_ktp,' . $no_ktp . ',no_ktp',
+        'no_ktp' => 'required|string|max:255|unique:warga,no_ktp,' . $warga_id . ',warga_id',
         'jenis_kelamin' => 'nullable|string|max:50',
         'agama' => 'nullable|string|max:50',
         'pekerjaan' => 'nullable|string|max:100',
         'no_hp' => 'nullable|string|max:50',
-        'email' => 'nullable|email|max:255|unique:warga,email,' . $no_ktp . ',no_ktp',
+        'email' => 'nullable|email|max:255|unique:warga,email,' . $warga_id . ',warga_id',
     ]);
 
-    DB::table('warga')->where('no_ktp', $no_ktp)->update([
+    DB::table('warga')->where('warga_id', $warga_id)->update([
         'nama' => $data['nama'],
         'jenis_kelamin' => $data['jenis_kelamin'] ?? null,
         'agama' => $data['agama'] ?? null,

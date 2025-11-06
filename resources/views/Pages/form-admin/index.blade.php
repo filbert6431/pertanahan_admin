@@ -1,5 +1,5 @@
 {{-- start main content --}}
-@extends('layout-admin.app')
+@extends('layouts.admin.app')
 
 @section('content')
     <main class="content">

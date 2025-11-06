@@ -9,7 +9,7 @@
     <meta content="" name="description">
 
     {{-- start css --}}
-@include('admin.Layout-admin.css')
+@include('layouts.admin.css')
     {{-- end css --}}
 </head>
 
@@ -64,7 +64,7 @@
     </div>
 
     <!-- end js -->
-@include('admin.Layout-admin.js')
+@include('layout.admin.js')
     <!-- end Javascript -->
 
 </body>

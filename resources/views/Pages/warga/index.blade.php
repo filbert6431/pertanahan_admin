@@ -1,5 +1,5 @@
 {{-- start main content --}}
-@extends('layout-admin.app')
+@extends('layouts.admin.app')
 
 @section('content')
 <main class="content">
@@ -24,8 +24,7 @@
 
         <div class="d-flex justify-content-between w-100 flex-wrap">
             <div class="mb-3 mb-lg-0">
-                <h1 class="h4 text-white">Akun Admin</h1>
-                <p class="mb-0 text-light">List data Warga</p>
+                <h1 class="h4 text-white">List data Warga</h1>
             </div>
             <div>
                 <a href="{{ route('warga.create') }}" class="btn btn-success text-white">
@@ -53,13 +52,13 @@
                         <table id="table-admin" class="table table-dark table-hover table-striped align-middle mb-0 rounded">
                             <thead>
                                 <tr class="text-primary">
-                                    <th>no_ktp</th>
-                                    <th>nama</th>
-                                    <th>Jenis Kelamin</th>
-                                    <th>agama</th>
-                                    <th>Pekerjaan</th>
-                                    <th>nomor HP</th>
-                                    <th>Email</th>
+                                    <th class="text-center">no_ktp</th>
+                                    <th class="text-center">nama</th>
+                                    <th class="text-center">Jenis Kelamin</th>
+                                    <th class="text-center">agama</th>
+                                    <th class="text-center">Pekerjaan</th>
+                                    <th class="text-center">nomor HP</th>
+                                    <th class="text-center">Email</th>
                                     <th class="text-center">Action</th>
                                 </tr>
                             </thead>
@@ -73,21 +72,7 @@
                                         <td>{{ $item->pekerjaan }}</td>
                                         <td>{{ $item->no_hp }}</td>
                                         <td>{{ $item->email }}</td>
-                                            <td>
-                        @php $ps = strtolower(trim($p->status ?? '')); @endphp
 
-                        @if(in_array($ps, ['available','tersedia']))
-                            <span class="badge bg-success">Tersedia</span>
-                        @elseif(in_array($ps, ['terjual','sold']))
-                            <span class="badge bg-danger">Terjual</span>
-                        @elseif(in_array($ps, ['proses','processing','diproses']))
-                            <span class="badge bg-warning text-dark">Dalam Proses</span>
-                        @elseif(in_array($ps, ['reserved','dibooking']))
-                            <span class="badge bg-info text-dark">Reserved</span>
-                        @else
-                            <span class="badge bg-light text-dark">-</span>
-                        @endif
-                    </td>
                                         <td class="text-center">
                                     <a href="{{ route('warga.edit', $item->warga_id) }}" class="btn btn-info btn-xs me-1 py-1 px-2" style="font-size: 0.75rem;">
                                                 <svg class="icon icon-xs me-1" fill="none" stroke-width="1.5"

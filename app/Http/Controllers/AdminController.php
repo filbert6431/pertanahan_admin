@@ -14,7 +14,7 @@ class AdminController extends Controller
 public function index()
 {
     $dataAdmin = Admin::all();
-    return view('Pages.form-admin.index', compact('dataAdmin'));
+    return view('pages.form-admin.index', compact('dataAdmin'));
 }
 
 
@@ -23,7 +23,7 @@ public function index()
      */
     public function create()
     {
-          	return view('Pages.form-admin.create');
+          	return view('pages.form-admin.create');
     }
 
     /**
@@ -64,7 +64,7 @@ public function index()
     public function edit(Admin $admin)
     {
         // gunakan route-model-binding langsung
-        return view('Pages.form-admin.edit', ['dataAdmin' => $admin]);
+        return view('pages.form-admin.edit', ['dataAdmin' => $admin]);
     }
 
     /**

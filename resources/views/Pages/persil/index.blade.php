@@ -1,6 +1,6 @@
 
 {{-- start main content --}}
-@extends('layout-admin.app')
+@extends('layouts.admin.app')
 
 @section('content')
 <main class="content">
@@ -54,14 +54,14 @@
                         <table id="table-persil" class="table table-dark table-hover table-striped align-middle mb-0 rounded">
                             <thead>
                                 <tr class="text-primary">
-                                    <th>ID</th>
-                                    <th>Kode Persil</th>
-                                    <th>Pemilik</th>
-                                    <th>Luas (m²)</th>
-                                    <th>Penggunaan</th>
-                                    <th>Alamat</th>
-                                    <th>RT</th>
-                                    <th>RW</th>
+                                    <th class="text-center">ID</th>
+                                    <th class="text-center">Kode Persil</th>
+                                    <th class="text-center">Pemilik</th>
+                                    <th class="text-center">Luas (m²)</th>
+                                    <th class="text-center">Penggunaan</th>
+                                    <th class="text-center">Alamat</th>
+                                    <th class="text-center">RT</th>
+                                    <th class="text-center">RW</th>
                                     <th class="text-center">Action</th>
                                 </tr>
                             </thead>

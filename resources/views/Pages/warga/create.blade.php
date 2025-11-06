@@ -1,4 +1,4 @@
-@extends('Layout-admin.app')
+@extends('layouts.admin.app')
 
 @section('content')
 <!-- Form Tambah Warga Start -->

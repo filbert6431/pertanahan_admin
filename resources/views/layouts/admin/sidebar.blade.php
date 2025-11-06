@@ -28,7 +28,7 @@
                             <a href="{{ route('persil.index') }}" class="dropdown-item">Tambah persil</a>
                         </div>
                     </div>
-                <a href="javascript:void(0)" onclick="document.getElementById('logout-form').submit();" class="nav-link">
+                <a href="{{ route('auth.index') }}" onclick="document.getElementById('logout-form').submit();" class="nav-link">
     <i class="fa fa-sign-out-alt me-2"></i>Logout
 </a>
                 </div>

@@ -1,4 +1,4 @@
-@extends('Layout-admin.app')
+@extends('layouts.admin.app')
 
 @section('content')
     <!-- Form Tambah Warga Start -->
@@ -9,7 +9,7 @@
 
                     <!-- Header -->
                     <div class="d-flex align-items-center justify-content-between mb-3">
-                        <a href="{{ url('/index') }}" class="text-decoration-none">
+                        <a href="{{ url('/dashboard') }}" class="text-decoration-none">
                             <h3 class="text-primary mb-0">
                                 <i class="fa fa-user-edit me-2"></i>DarkPan
                             </h3>
@@ -89,12 +89,6 @@
                         </div>
 
                         {{-- Password --}}
-                        <div class="form-floating mb-4">
-                            <input type="password" class="form-control" name="password" id="password"
-                                placeholder="Password" value="{{ $dataWarga->password }}" required>
-                            <label for="password">Password</label>
-                        </div>
-
                         {{-- Checkbox & Link --}}
                         <div class="d-flex align-items-center justify-content-between mb-4">
                             <div class="form-check">

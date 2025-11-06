@@ -24,12 +24,13 @@ Route::post('/auth/logout', [AuthController::class, 'logout'])->name('auth.logou
 
 // halaman utama
 Route::get('/dashboard', function () {
-    return view('Pages.index');
+    return view('pages.index');
 })->name('dashboard');
 
 // halaman sidebar
 
 // route form
+Route::resource('auth',authController::class);
 Route::resource('admin', AdminController::class);
 Route::resource('persil', PersilController::class);
 Route::resource('warga', WargaController::class);
