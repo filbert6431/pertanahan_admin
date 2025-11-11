@@ -12,7 +12,7 @@ class AuthController extends Controller
 	// show login form (placed under resources/views/admin/)
 	public function index()
 	{
-		return view('pages.login');
+		return view('pages.signin');
 	}
 
 	// process login form posted to /auth/proses-login
@@ -21,6 +21,7 @@ class AuthController extends Controller
 		$request->validate([
 			'email' => 'required|email',
 			'password' => 'required',
+            'password.min' => 'Password must be at least 6 characters.',
 		]);
 
 		$email = $request->input('email');

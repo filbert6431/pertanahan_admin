@@ -21,6 +21,9 @@ Route::post('/auth/proses-login', [authController::class, 'login'])->name('login
 // logout for this simple flow
 Route::post('/auth/logout', [AuthController::class, 'logout'])->name('auth.logout');
 
+Route::get('/auth/register-akun', function () {
+    return view('pages.signup');
+})->name('signup');
 
 // halaman utama
 Route::get('/dashboard', function () {
@@ -34,5 +37,5 @@ Route::resource('auth',authController::class);
 Route::resource('admin', AdminController::class);
 Route::resource('persil', PersilController::class);
 Route::resource('warga', WargaController::class);
-
+Route::resource('pages', PageController::class);
 // untuk mengakses login pergi ke pertanahan_admin/auth/form_login

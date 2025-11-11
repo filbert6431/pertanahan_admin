@@ -47,7 +47,7 @@ public function index()
         'password' => $validated['password'],
     ]);
 
-    return redirect()->route('pages.index')->with('success', 'Data Berhasil Ditambahkan');
+    return redirect()->route('admin.index')->with('success', 'Data Berhasil Ditambahkan');
 }
 
     /**
@@ -89,7 +89,7 @@ public function update(Request $request, Admin $admin)
     // Update model
     $admin->update($data);
 
-    return redirect()->route('Pages.index')->with('success', 'Data Berhasil Diupdate');
+    return redirect()->route('admin.index')->with('success', 'Data Berhasil Diupdate');
 }
 
     /**
@@ -99,6 +99,6 @@ public function update(Request $request, Admin $admin)
     {
         // Hapus lewat model yang sudah di-bind
         $admin->delete();
-        return redirect()->route('Pages.index')->with('success', 'Data Berhasil Dihapus');
+        return redirect()->route('admin.index')->with('success', 'Data Berhasil Dihapus');
     }
 }

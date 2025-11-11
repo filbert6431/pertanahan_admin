@@ -78,7 +78,7 @@
 
                     {{-- Tombol Submit --}}
                     <button type="submit" class="btn btn-primary py-3 w-100 mb-4">
-                        Sign Up
+                        tambah admin
                     </button>
                 </form>
                 {{-- Form End --}}
