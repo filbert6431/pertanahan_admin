@@ -15,12 +15,12 @@ class PersilController extends Controller
         return view('pages.persil.index', compact('dataPersil'));
     }
 
-    public function create()
-    {
-        // ambil semua warga untuk dropdown di form create
-        $wargaList = Warga::all();
-        return view('pages.persil.create', compact('wargaList'));
-    }
+public function create()
+{
+    $wargaList = Warga::all(); // ambil semua data warga
+    return view('pages.persil.create', compact('wargaList'));
+}
+
 
     public function store(Request $request)
     {
@@ -63,6 +63,28 @@ class PersilController extends Controller
 
         return redirect()->route('persil.index')->with('success', 'Data berhasil diperbarui!');
     }
+
+public function updateStatus(Request $request, $id)
+{
+    $datapersil = Persil::find($id);
+
+    if (!$datapersil) {
+        return redirect()->back()->with('destroy', 'Persil tidak ditemukan (id=' . $id . ')');
+    }
+
+    // Cek apakah kolom status ada di tabel
+    if (!\Schema::hasColumn($datapersil->getTable(), 'status')) {
+        return redirect()->back()->with('destroy', 'Kolom status tidak ditemukan di tabel ' . $datapersil->getTable());
+    }
+
+    // Update kolom status
+    $datapersil->status = $request->input('status');
+    $datapersil->save();
+
+    return redirect()->route('persil.index')->with('update', 'Status persil berhasil diperbarui!');
+}
+
+
 
     public function destroy($id)
     {

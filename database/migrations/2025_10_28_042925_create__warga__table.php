@@ -24,6 +24,7 @@ Schema::create('Warga', function (Blueprint $table) {
     $table->string('pekerjaan');
     $table->string('no_hp');
     $table->string('email')->unique();
+    $table->string('status')->default('aktif'); // ✅ tambahkan kolom status
     $table->timestamps();
 });
 

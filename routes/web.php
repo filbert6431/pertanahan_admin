@@ -32,6 +32,11 @@ Route::get('/dashboard', function () {
 
 // halaman sidebar
 
+//badge
+Route::put('/warga/{id}/status', [WargaController::class, 'updateStatus'])->name('warga.updateStatus');
+Route::put('/persil/{id}/status', [PersilController::class, 'updateStatus'])->name('Persil.updateStatus');
+Route::put('/Admin/{id}/status', [adminController::class, 'updateStatus'])->name('Admin.updateStatus');
+
 // route form
 Route::resource('auth',authController::class);
 Route::resource('admin', AdminController::class);

@@ -30,6 +30,7 @@ class Warga extends Model
 		'pekerjaan',
 		'no_hp',
 		'no_ktp',
+        'status'
 	];
 
 	/**

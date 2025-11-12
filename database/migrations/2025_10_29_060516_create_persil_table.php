@@ -23,6 +23,7 @@ return new class extends Migration
             $table->string('alamat_lahan');
             $table->string('rt');
             $table->string('rw');
+            $table->string('status')->default('pending'); // kolom status dengan default 'pending'
 
             // constraint
             // $table->foreign('pemilik_warga_id')

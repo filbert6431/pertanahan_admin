@@ -70,6 +70,33 @@ class WargaController extends Controller
         //
     }
 
+public function updateStatus(Request $request, $id)
+{
+    $warga = \App\Models\Warga::find($id);
+
+    if (!$warga) {
+        // kalau null, kita tahu ID tidak ditemukan
+        return redirect()->back()->with('destroy', 'Warga tidak ditemukan (id='.$id.')');
+    }
+
+    // cek apakah kolom 'status' ada di tabel
+    $hasColumn = \Schema::hasColumn($warga->getTable(), 'status');
+
+    if (!$hasColumn) {
+        return redirect()->back()->with('destroy', 'Kolom status tidak ditemukan di tabel '.$warga->getTable());
+    }
+
+    $warga->status = $request->input('status');
+    // debug: log atau dd sebelum save
+    \Log::info('Update status debug', ['id'=>$id, 'status'=>$request->input('status'), 'warga_table'=>$warga->getTable()]);
+    // dd($warga->toArray(), $hasColumn);
+
+    $warga->save();
+
+    return redirect()->route('warga.index')->with('update', 'Status diupdate');
+}
+
+
     /**
      * Show the form for editing the specified resource.
      */

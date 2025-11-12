@@ -21,6 +21,7 @@ class Persil extends Model
         'alamat_lahan',
         'rt',
         'rw',
+        'status',
     ];
 
     // relasi ke model Warga
