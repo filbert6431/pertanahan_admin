@@ -44,10 +44,10 @@ class WargaController extends Controller
         'pekerjaan' => 'nullable|string|max:100',
         'no_hp' => 'nullable|string|max:50',
         'email' => 'nullable|email|max:255',
-        'no_ktp' => 'nullable|string|max:255|unique:warga,no_ktp',
+        'no_ktp' => 'nullable|string|max:255|unique:Warga,no_ktp',
     ]);
 
-    DB::table('warga')->insert([
+    DB::table('Warga')->insert([
         'nama' => $data['nama'],
         'jenis_kelamin' => $data['jenis_kelamin'] ?? null,
         'agama' => $data['agama'] ?? null,
@@ -121,7 +121,7 @@ public function update(Request $request, $warga_id)
         'email' => 'nullable|email|max:255|unique:warga,email,' . $warga_id . ',warga_id',
     ]);
 
-    DB::table('warga')->where('warga_id', $warga_id)->update([
+    DB::table('Warga')->where('warga_id', $warga_id)->update([
         'nama' => $data['nama'],
         'jenis_kelamin' => $data['jenis_kelamin'] ?? null,
         'agama' => $data['agama'] ?? null,
