@@ -2,38 +2,25 @@
 
 namespace App\Models;
 
-use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
-class user extends model
+class User extends Authenticatable
 {
-  protected $table = 'user';
-    protected $primaryKey = 'user_id';
+    use HasFactory, Notifiable;
+
+    protected $table = 'user'; // ← kalau nama tabel kamu 'user', bukan 'users'
+    protected $primaryKey = 'user_id'; // ← sesuaikan dengan tabel kamu
+
     protected $fillable = [
+        'username',
         'email',
         'password',
     ];
 
-    /**
-     * The attributes that should be hidden for serialization.
-     *
-     * @var list<string>
-     */
     protected $hidden = [
         'password',
         'remember_token',
     ];
-
-
-    /**
-     * Get the attributes that should be cast.
-     *
-     * @return array<string, string>
-     */
-protected $casts = [
-    'email_verified_at' => 'datetime',
-    'password' => 'hashed',
-];
 }

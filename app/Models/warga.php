@@ -31,6 +31,7 @@ class Warga extends Model
 		'no_hp',
 		'no_ktp',
         'status'
+
 	];
 
 	/**
