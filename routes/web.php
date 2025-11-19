@@ -44,3 +44,33 @@ Route::resource('persil', PersilController::class);
 Route::resource('warga', WargaController::class);
 Route::resource('pages', PageController::class);
 // untuk mengakses login pergi ke pertanahan_admin/auth/form_login
+
+Route::get('/debug-db', function() {
+    echo "<h3>Database Info:</h3>";
+    echo "DB Name: " . config('database.connections.mysql.database') . "<br>";
+    echo "DB Host: " . config('database.connections.mysql.host') . "<br>";
+
+    echo "<h3>All Tables:</h3>";
+    try {
+        $tables = DB::select('SHOW TABLES');
+        foreach ($tables as $table) {
+            $tableName = $table->{array_keys((array)$table)[0]};
+            echo "- " . $tableName . "<br>";
+
+            // Check if this might be our warga table
+            if (stripos($tableName, 'warga') !== false) {
+                echo "  ⬅️ <strong>POSSIBLE WARGA TABLE!</strong><br>";
+
+                // Try to count records
+                try {
+                    $count = DB::table($tableName)->count();
+                    echo "  Records: " . $count . "<br>";
+                } catch (\Exception $e) {
+                    echo "  Error counting: " . $e->getMessage() . "<br>";
+                }
+            }
+        }
+    } catch (\Exception $e) {
+        echo "Error: " . $e->getMessage();
+    }
+});
