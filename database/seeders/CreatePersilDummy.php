@@ -14,7 +14,7 @@ class CreatePersilDummy extends Seeder
         $faker = Faker::create();
 
         // Ambil ID warga yang benar-benar ada
-        $wargaIds = DB::table('warga')->pluck('warga_id')->toArray();
+        $wargaIds = DB::table('Warga')->pluck('warga_id')->toArray();
 
         foreach (range(1, 50) as $index) {
             DB::table('persil')->insert([
