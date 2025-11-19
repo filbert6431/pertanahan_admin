@@ -13,7 +13,7 @@ class CreateWargaDummy extends Seeder
         $faker = Faker::create();
 
         foreach (range(1, 50) as $index) {
-            DB::table('warga')->insert([
+            DB::table('Warga')->insert([
                 'no_ktp'        => $faker->unique()->numerify('################'),
                 'nama'          => $faker->name(),
                 'jenis_kelamin' => $faker->randomElement(['Laki-laki', 'Perempuan']),
