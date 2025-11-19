@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Hash;
 class Warga extends Model
 {
 	// sesuaikan ke tabel yang ada di DB (bukan plural 'wargas')
-	protected $table = 'warga';
+	protected $table = 'Warga';
 
 	// jika primary key Anda bukan 'id', atur di sini
 	protected $primaryKey = 'warga_id';
