@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 use App\Models\Warga; // ini jangan lupa
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\Log;
 
 class WargaController extends Controller
 {
@@ -80,7 +82,7 @@ public function updateStatus(Request $request, $id)
     }
 
     // cek apakah kolom 'status' ada di tabel
-    $hasColumn = \Schema::hasColumn($warga->getTable(), 'status');
+    $hasColumn = Schema::hasColumn($warga->getTable(), 'status');
 
     if (!$hasColumn) {
         return redirect()->back()->with('destroy', 'Kolom status tidak ditemukan di tabel '.$warga->getTable());
@@ -88,7 +90,7 @@ public function updateStatus(Request $request, $id)
 
     $warga->status = $request->input('status');
     // debug: log atau dd sebelum save
-    \Log::info('Update status debug', ['id'=>$id, 'status'=>$request->input('status'), 'warga_table'=>$warga->getTable()]);
+    Log::info('Update status debug', ['id'=>$id, 'status'=>$request->input('status'), 'warga_table'=>$warga->getTable()]);
     // dd($warga->toArray(), $hasColumn);
 
     $warga->save();

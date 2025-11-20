@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Persil;
 use App\Models\Warga;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Schema;
 
 class PersilController extends Controller
 {
@@ -73,7 +75,7 @@ public function updateStatus(Request $request, $id)
     }
 
     // Cek apakah kolom status ada di tabel
-    if (!\Schema::hasColumn($datapersil->getTable(), 'status')) {
+    if (Schema::hasColumn($datapersil->getTable(), 'status')) {
         return redirect()->back()->with('destroy', 'Kolom status tidak ditemukan di tabel ' . $datapersil->getTable());
     }
 

@@ -16,6 +16,7 @@ public function up(): void
         $table->string('name');
         $table->string('email')->unique();
         $table->string('password');
+        $table->string('status')->default('aktif');
         $table->timestamps();
     });
 }

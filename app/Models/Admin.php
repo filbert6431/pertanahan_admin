@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Builder;
 
 class Admin extends Model
 {
@@ -12,6 +13,7 @@ class Admin extends Model
         'name',
         'email',
         'password',
+        'status'
     ];
 
     /**
@@ -24,6 +26,15 @@ class Admin extends Model
         'remember_token',
     ];
 
+    public function scopeFilter(Builder $query, $request, array $filterableColumns): Builder
+{
+    foreach ($filterableColumns as $column) {
+        if ($request->filled($column)) {
+            $query->where($column, $request->input($column));
+        }
+    }
+    return $query;
+}
 
     /**
      * Get the attributes that should be cast.

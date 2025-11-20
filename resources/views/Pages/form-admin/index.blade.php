@@ -50,12 +50,27 @@
                 <div class="card border-0 shadow bg-dark text-light">
                     <div class="card-body">
                         <div class="table-responsive">
+                            <form method="GET" action="{{ route('admin.index') }}" onchange="this.form.submit()"
+                                class="mb-3">
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        <select name="gender" class="form-select">
+                                            <option value="">All</option>
+                                            <option value="aktif" {{ request('status') == 'aktif' ? 'selected' : '' }}>aktif
+                                            </option>
+                                            <option value="nonaktif" {{ request('status') == 'nonaktif' ? 'selected' : '' }}>
+                                                nonaktif</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </form>
                             <table id="table-admin"
                                 class="table table-dark table-hover table-striped align-middle mb-0 rounded">
                                 <thead>
                                     <tr class="text-primary">
                                         <th>Nama</th>
                                         <th>Email</th>
+                                        <th class="text-center">Status</th>
                                         <th class="text-center">Action</th>
                                     </tr>
                                 </thead>
@@ -65,21 +80,38 @@
                                             <td>{{ $item->name }}</td>
                                             <td>{{ $item->email }}</td>
 
-                                            {{-- ✅ Badge Status --}}
-                                            <td>
-                                                @php $ps = strtolower(trim($p->status ?? '')); @endphp
+                                            <td class="text-center">
+                                                @php
+                                                    $status = strtolower($item->status ?? 'pending');
+                                                    $badgeColor = match ($status) {
+                                                        'aktif' => 'success',
+                                                        'nonaktif' => 'secondary',
+                                                        'pending' => 'warning',
+                                                        'banned' => 'danger',
+                                                        default => 'info',
+                                                    };
+                                                @endphp
 
-                                                @if (in_array($ps, ['available', 'tersedia']))
-                                                    <span class="badge bg-success">Tersedia</span>
-                                                @elseif(in_array($ps, ['terjual', 'sold']))
-                                                    <span class="badge bg-danger">Terjual</span>
-                                                @elseif(in_array($ps, ['proses', 'processing', 'diproses']))
-                                                    <span class="badge bg-warning text-dark">Dalam Proses</span>
-                                                @elseif(in_array($ps, ['reserved', 'dibooking']))
-                                                    <span class="badge bg-info text-dark">Reserved</span>
-                                                @else
-                                                    <span class="badge bg-light text-dark">-</span>
-                                                @endif
+                                                <form action="{{ route('Admin.updateStatus', $item->admin_id) }}"
+                                                    method="POST">
+                                                    @csrf
+                                                    @method('PUT')
+                                                    <div class="dropdown">
+                                                        <button
+                                                            class="btn btn-sm btn-{{ $badgeColor }} dropdown-toggle text-uppercase"
+                                                            type="button" id="dropdownMenuButton{{ $item->admin_id }}"
+                                                            data-bs-toggle="dropdown" aria-expanded="false">
+                                                            {{ $status }}
+                                                        </button>
+                                                        <ul class="dropdown-menu"
+                                                            aria-labelledby="dropdownMenuButton{{ $item->admin_id }}">
+                                                            <li><button class="dropdown-item" name="status"
+                                                                    value="aktif">Aktif</button></li>
+                                                            <li><button class="dropdown-item" name="status"
+                                                                    value="nonaktif">Nonaktif</button></li>
+                                                        </ul>
+                                                    </div>
+                                                </form>
                                             </td>
 
                                             <td class="text-center">
@@ -104,17 +136,17 @@
                                                             stroke="currentColor" viewBox="0 0 24 24"
                                                             xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                                                             <path stroke-linecap="round" stroke-linejoin="round" d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21
-                                                                c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673
-                                                                a2.25 2.25 0 0 1-2.244 2.077H8.084
-                                                                a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79
-                                                                m14.456 0a48.108 48.108 0 0 0-3.478-.397
-                                                                m-12 .562c.34-.059.68-.114 1.022-.165
-                                                                m0 0a48.11 48.11 0 0 1 3.478-.397
-                                                                m7.5 0v-.916
-                                                                c0-1.18-.91-2.164-2.09-2.201
-                                                                a51.964 51.964 0 0 0-3.32 0
-                                                                c-1.18.037-2.09 1.022-2.09 2.201v.916
-                                                                m7.5 0a48.667 48.667 0 0 0-7.5 0">
+                                                                                c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673
+                                                                                a2.25 2.25 0 0 1-2.244 2.077H8.084
+                                                                                a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79
+                                                                                m14.456 0a48.108 48.108 0 0 0-3.478-.397
+                                                                                m-12 .562c.34-.059.68-.114 1.022-.165
+                                                                                m0 0a48.11 48.11 0 0 1 3.478-.397
+                                                                                m7.5 0v-.916
+                                                                                c0-1.18-.91-2.164-2.09-2.201
+                                                                                a51.964 51.964 0 0 0-3.32 0
+                                                                                c-1.18.037-2.09 1.022-2.09 2.201v.916
+                                                                                m7.5 0a48.667 48.667 0 0 0-7.5 0">
                                                             </path>
                                                         </svg>
                                                         Hapus
@@ -125,6 +157,9 @@
                                     @endforeach
                                 </tbody>
                             </table>
+                            <div class="mt-3">
+                                {{ $dataAdmin->links('pagination::bootstrap-5') }}
+                            </div>
                         </div>
                     </div>
                 </div>

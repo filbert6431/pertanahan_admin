@@ -1,11 +1,12 @@
 <?php
 
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\http\Controllers\PageController;
 use App\Http\Controllers\AdminController;
-use App\Http\Controllers\PersilController;
 use App\Http\Controllers\WargaController;
+use App\Http\Controllers\PersilController;
 
 Route::get('/',[AuthController::class, 'index'])->name('login-siap');
 
