@@ -17,9 +17,13 @@ class AdminController extends Controller
      */
     public function index(request $request)
     {
-        $filterableColumns = ['name', 'email'];
+        $filterableColumns = ['status'];
+        $searchableColumns = ['name', 'email'];
 
-        $dataAdmin = Admin::filter($request, $filterableColumns)->paginate(10)->onEachSide(2);
+        $dataAdmin = Admin::filter($request, $filterableColumns)
+        ->search($request, $searchableColumns)
+        ->paginate(10)
+        ->onEachSide(2);
         return view('pages.form-admin.index', compact('dataAdmin'));
     }
 

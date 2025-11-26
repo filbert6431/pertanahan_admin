@@ -25,7 +25,7 @@ class CreatePersilDummy extends Seeder
                 'alamat_lahan'     => $faker->address(),
                 'rt'               => $faker->numberBetween(1, 10),
                 'rw'               => $faker->numberBetween(1, 10),
-                'status'           => $faker->randomElement(['pending', 'approved', 'rejected']),
+                'status'           => $faker->randomElement(['diterima', 'ditolak', 'pending']),
             ]);
         }
     }

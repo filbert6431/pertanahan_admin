@@ -23,6 +23,7 @@ class CreateWargaDummy extends Seeder
                 'pekerjaan'     => $faker->jobTitle(),
                 'no_hp'         => $faker->phoneNumber(),
                 'email'         => $faker->unique()->safeEmail(),
+                'status'        => $faker->randomElement(['aktif', 'Nonaktif']),
             ]);
         }
     }

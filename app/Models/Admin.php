@@ -36,6 +36,17 @@ class Admin extends Model
     return $query;
 }
 
+public function scopeSearch($query, $request, array $columns)
+{
+    if ($request->filled('search')) {
+        $query->where(function($q) use ($request, $columns) {
+            foreach ($columns as $column) {
+                $q->orWhere($column, 'LIKE', '%' . $request->search . '%');
+            }
+        });
+    }
+}
+
     /**
      * Get the attributes that should be cast.
      *

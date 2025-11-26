@@ -2,22 +2,30 @@
 
 namespace Database\Seeders;
 
-use App\Models\User;
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\File;
 
 class DatabaseSeeder extends Seeder
 {
-    /**
-     * Seed the application's database.
-     */
     public function run(): void
     {
-        // User::factory(10)->create();
+        $seeders = File::files(database_path('seeders'));
 
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
-        ]);
+        foreach ($seeders as $seeder) {
+
+            $class = pathinfo($seeder->getFilename(), PATHINFO_FILENAME);
+
+            // Lewati DatabaseSeeder sendiri
+            if ($class === 'DatabaseSeeder') {
+                continue;
+            }
+
+            // Cek full namespace class
+            $fullClass = "Database\\Seeders\\$class";
+
+            if (class_exists($fullClass)) {
+                $this->call($fullClass);
+            }
+        }
     }
 }
