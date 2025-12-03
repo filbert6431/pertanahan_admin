@@ -59,9 +59,11 @@
                                                     {{ request('status') == 'diterima' ? 'selected' : '' }}>
                                                     Diterima
                                                 </option>
-                                                <option value="Pending" {{ request('status') == 'nonaktif' ? 'Pending' : '' }}>
+                                                <option value="Pending"
+                                                    {{ request('status') == 'nonaktif' ? 'Pending' : '' }}>
                                                     Pending</option>
-                                                <option value="ditolak" {{ request('status') == 'ditolak' ? 'selected' : '' }}>
+                                                <option value="ditolak"
+                                                    {{ request('status') == 'ditolak' ? 'selected' : '' }}>
                                                     Ditolak
                                                 </option>
                                             </select>
@@ -74,7 +76,8 @@
                                                 <button type="submit" class="input-group-text" id="basic-addon2">
                                                     @if (request('search'))
                                                         <a href="{{ request()->fullUrlWithQuery(['search' => null]) }}"
-                                                            class="btn btn-outline-secondary ml-3" id="clear-search"> Clear</a>
+                                                            class="btn btn-outline-secondary ml-3" id="clear-search">
+                                                            Clear</a>
                                                     @endif
                                                     <svg class="icon icon-xxs" fill="currentColor" viewBox="0 0 20 20"
                                                         xmlns="http://www.w3.org/2000/svg">
@@ -141,7 +144,8 @@
                                                         <div class="dropdown dropup">
                                                             <button
                                                                 class="btn btn-sm btn-{{ $badgeColor }} dropdown-toggle text-uppercase"
-                                                                type="button" id="dropdownMenuButton{{ $item->persil_id }}"
+                                                                type="button"
+                                                                id="dropdownMenuButton{{ $item->persil_id }}"
                                                                 data-bs-toggle="dropdown" aria-expanded="false">
                                                                 {{ $label }}
                                                             </button>
@@ -162,7 +166,8 @@
 
                                                 <td class="text-center">
                                                     <a href="{{ route('persil.edit', $item->persil_id) }}"
-                                                        class="btn btn-info btn-xs me-1 py-1 px-2" style="font-size: 0.75rem;">
+                                                        class="btn btn-info btn-xs me-1 py-1 px-2"
+                                                        style="font-size: 0.75rem;">
                                                         <svg class="icon icon-xs me-1" fill="none" stroke-width="1.5"
                                                             stroke="currentColor" viewBox="0 0 24 24"
                                                             xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
@@ -178,21 +183,22 @@
                                                         @csrf
                                                         @method('DELETE')
                                                         <button type="submit" class="btn btn-danger btn-sm">
-                                                            <svg class="icon icon-xs me-1" fill="none" stroke-width="1.5"
-                                                                stroke="currentColor" viewBox="0 0 24 24"
-                                                                xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                                                            <svg class="icon icon-xs me-1" fill="none"
+                                                                stroke-width="1.5" stroke="currentColor"
+                                                                viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"
+                                                                aria-hidden="true">
                                                                 <path stroke-linecap="round" stroke-linejoin="round" d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21
-                                                                                    c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673
-                                                                                    a2.25 2.25 0 0 1-2.244 2.077H8.084
-                                                                                    a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79
-                                                                                    m14.456 0a48.108 48.108 0 0 0-3.478-.397
-                                                                                    m-12 .562c.34-.059.68-.114 1.022-.165
-                                                                                    m0 0a48.11 48.11 0 0 1 3.478-.397
-                                                                                    m7.5 0v-.916
-                                                                                    c0-1.18-.91-2.164-2.09-2.201
-                                                                                    a51.964 51.964 0 0 0-3.32 0
-                                                                                    c-1.18.037-2.09 1.022-2.09 2.201v.916
-                                                                                    m7.5 0a48.667 48.667 0 0 0-7.5 0">
+                                                                                        c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673
+                                                                                        a2.25 2.25 0 0 1-2.244 2.077H8.084
+                                                                                        a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79
+                                                                                        m14.456 0a48.108 48.108 0 0 0-3.478-.397
+                                                                                        m-12 .562c.34-.059.68-.114 1.022-.165
+                                                                                        m0 0a48.11 48.11 0 0 1 3.478-.397
+                                                                                        m7.5 0v-.916
+                                                                                        c0-1.18-.91-2.164-2.09-2.201
+                                                                                        a51.964 51.964 0 0 0-3.32 0
+                                                                                        c-1.18.037-2.09 1.022-2.09 2.201v.916
+                                                                                        m7.5 0a48.667 48.667 0 0 0-7.5 0">
                                                                 </path>
                                                             </svg>
                                                             Hapus
@@ -204,11 +210,15 @@
 
                                         @if ($dataPersil->isEmpty())
                                             <tr>
-                                                <td colspan="9" class="text-center text-muted">Belum ada data persil.</td>
+                                                <td colspan="9" class="text-center text-muted">Belum ada data persil.
+                                                </td>
                                             </tr>
                                         @endif
                                     </tbody>
                                 </table>
+                                <div class="mt-3">
+                                    {{ $dataPersil->links('pagination::bootstrap-5') }}
+                                </div>
                             </div>
                         </div>
                     </div>

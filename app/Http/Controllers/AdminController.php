@@ -24,6 +24,7 @@ class AdminController extends Controller
         ->search($request, $searchableColumns)
         ->paginate(10)
         ->onEachSide(2);
+
         return view('pages.form-admin.index', compact('dataAdmin'));
     }
 

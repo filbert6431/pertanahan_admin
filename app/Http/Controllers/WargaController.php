@@ -20,6 +20,7 @@ class WargaController extends Controller
         ->search($request, $searchablecolumns)
         ->paginate(5)
         ->oneachSide(2);
+
         return view('pages.warga.index', compact('dataWarga'));
     }
 

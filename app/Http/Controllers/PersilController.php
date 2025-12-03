@@ -11,7 +11,7 @@ class PersilController extends Controller
     public function index(request $request)
     {
         $filterablecolumns = ['status'];
-        $searchablecolumns = ['kode_persil', 'alamat_lahan', 'rt', 'rw', 'penggunaan', 'pemilik.nama'];
+        $searchablecolumns = ['kode_persil', 'alamat_lahan', 'rt', 'rw', 'penggunaan'];
         // ambil semua data persil + nama warga (relasi)
         $dataPersil = Persil::with('pemilik')
             ->filter($request, $filterablecolumns)
