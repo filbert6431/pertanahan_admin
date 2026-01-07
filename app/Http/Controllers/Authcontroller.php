@@ -42,6 +42,40 @@ class AuthController extends Controller
         return redirect('/dashboard');
     }
 
+        public function signup(Request $request)
+    {
+        // Debug: Check request data
+        // dd($request->all());
+
+        $validated = $request->validate([
+            'name'            => 'required|string|max:100',
+            'email'           => 'required|email|unique:users,email',
+            'password'        => 'required|min:6',
+            'confirm_password' => 'required|same:password',
+            'profile_picture' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
+        ]);
+
+        // Debug: Validation passed
+        // dd('Validation passed');
+
+        // Upload foto
+        if ($request->hasFile('profile_picture')) {
+            $filename = time() . '_' . $request->profile_picture->getClientOriginalName();
+            $request->profile_picture->storeAs('user_profiles', $filename, 'public');
+            $validated['profile_picture'] = 'user_profiles/' . $filename;
+        }
+
+          User::create([
+        'name' => $request->name,
+        'email' => $request->email,
+        'password' => bcrypt($request->password),
+        'role' => 'admin',
+        'status' => 'aktif',
+    ]);
+
+      return redirect()->route('login')->with('success', 'Akun berhasil dibuat, silakan login');
+    }
+
 // logout (clears user session)
 function logout(Request $request)
 {

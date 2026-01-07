@@ -71,12 +71,14 @@ class UserController extends Controller
         'name' => $request->name,
         'email' => $request->email,
         'password' => bcrypt($request->password),
-        'role' => 'user',
+        'role' => 'admin',
         'status' => 'aktif',
     ]);
 
         return redirect()->route('user.index')->with('success', 'Data Berhasil Ditambahkan');
     }
+
+
 
 
 

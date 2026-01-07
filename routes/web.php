@@ -33,7 +33,7 @@ Route::get('/auth/register-akun', function () {
     return view('pages.signup');
 })->name('signup');
 
-Route::post('/auth/register-akun', [UserController::class, 'store'])
+Route::post('/auth/register-akun', [AuthController::class, 'signup'])
 ->name('signup.store');
 
 
