@@ -7,9 +7,6 @@ use Illuminate\Support\Facades\Schema;
 return new class extends Migration
 {
 
-
-    protected $table = 'Warga'; // ✅ tambahkan ini biar laravel tau nama tabel kita
-    protected $primaryKey = 'warga_id';
     /**
      * Run the migrations.
      */
