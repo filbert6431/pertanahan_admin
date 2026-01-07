@@ -164,7 +164,8 @@
     <div class="split-container">
         <!-- Bagian Kiri -->
         <div class="welcome-section">
-            <i class="fa fa-seedling fa-3x text-success mb-3"></i>
+            <img src="{{ asset('asset-admin/img/logo.png') }}" style="width: 80px; height: 80px; margin-bottom: 20px;"
+                alt="Logo Admin Persil">
             <h4>Join the Admin Panel</h4>
             <p>Register to gain access to the administrative dashboard and manage data securely.</p>
             <p class="text-muted">
@@ -177,15 +178,22 @@
         <div class="register-section">
             <div class="register-card">
                 <div class="text-center mb-4">
-                    <h3><i class="fa fa-user-plus me-2"></i> Create Account</h3>
+                    <h3><img src="{{ asset('asset-admin/img/logo.png') }}" style="width: 40px; height: 40px;"
+                            alt="Logo Admin Persil"> Create Account</h3>
                 </div>
 
-                <form action="{{ route('admin.store') }}" method="POST">
+                <form action="{{ route('signup.store') }}" method="post">
                     @csrf
                     <div class="row">
                         <div class="col-md-12 mb-3">
                             <div class="form-floating">
-                                <input type="email" class="form-control" id="email" name="email" placeholder="Email" required>
+                                <input type="text" class="form-control" id="name" name="name"
+                                    placeholder="Name" required>
+                                <label for="name">Name</label>
+                            </div>
+                            <div class="form-floating">
+                                <input type="email" class="form-control" id="email" name="email"
+                                    placeholder="Email" required>
                                 <label for="email">Email</label>
                             </div>
                         </div>
@@ -194,14 +202,16 @@
                     <div class="row">
                         <div class="col-md-6 mb-3">
                             <div class="form-floating">
-                                <input type="password" class="form-control" id="password" name="password" placeholder="Password" required>
+                                <input type="password" class="form-control" id="password" name="password"
+                                    placeholder="Password" required>
                                 <label for="password">Password</label>
                             </div>
                         </div>
 
                         <div class="col-md-6 mb-3">
                             <div class="form-floating">
-                                <input type="password" class="form-control" id="confirm_password" name="confirm_password" placeholder="Confirm Password" required>
+                                <input type="password" class="form-control" id="confirm_password"
+                                    name="confirm_password" placeholder="Confirm Password" required>
                                 <label for="confirm_password">Confirm Password</label>
                             </div>
                         </div>

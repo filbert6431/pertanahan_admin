@@ -14,6 +14,8 @@ class WargaController extends Controller
      */
     public function index(request $request)
     {
+        if (auth()->check()) {
+
         $filterableColumns = ['status'];
         $searchablecolumns = ['nama', 'no_ktp', 'jenis_kelamin', 'agama', 'pekerjaan', 'no_hp', 'email'];
         $dataWarga = Warga::filter($request, $filterableColumns)
@@ -23,6 +25,8 @@ class WargaController extends Controller
 
         return view('pages.warga.index', compact('dataWarga'));
     }
+            return redirect()->route('halaman-login');
+        }
 
     /**
      * Show the form for creating a new resource.

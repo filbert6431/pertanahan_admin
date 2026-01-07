@@ -1,6 +1,6 @@
   =>  Template Name    : DarkPan - Bootstrap 5 Admin Template
 
-  =>  Template Link    : https://htmlcodex.com/bootstrap-5-admin-template
+  =>  Template Link    :
 
   =>  Template License : https://htmlcodex.com/license (or read the LICENSE.txt file)
 

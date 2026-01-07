@@ -1,9 +1,10 @@
 <?php
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Builder;
+use App\Models\dokumen_persil;
 
 class Persil extends Model
 {
@@ -23,6 +24,11 @@ class Persil extends Model
         'rw',
         'status',
     ];
+
+    public function pemilik()
+    {
+        return $this->belongsTo(Warga::class, 'pemilik_warga_id', 'warga_id');
+    }
 
     public function scopeFilter(Builder $query, $request, array $filterableColumns): Builder
     {
@@ -45,9 +51,14 @@ class Persil extends Model
         }
     }
 
+    public function dokumenPersil()
+{
+    return $this->hasMany(
+        dokumen_persil::class,
+        'persil_id',   // foreign key di tabel dokumen_persil
+        'persil_id'    // primary key di tabel persil
+    );
+}
     // relasi ke model Warga
-    public function pemilik()
-    {
-        return $this->belongsTo(Warga::class, 'pemilik_warga_id', 'warga_id');
-    }
+
 }

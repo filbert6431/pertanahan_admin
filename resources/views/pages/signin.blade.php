@@ -139,7 +139,8 @@
 <body>
 
     <div class="welcome-section">
-        <i class="fa fa-leaf fa-3x text-success mb-3"></i>
+        <img src="{{asset('asset-admin/img/logo.png')}}"
+            style="width: 80px; height: 80px; margin-bottom: 20px;" alt="Logo Admin Persil">
         <h4>Welcome to Admin Panel</h4>
         <p>Manage your system efficiently with our secure login. Access your dashboard and explore the features designed for administrators.</p>
         <p class="text-muted">Tip: Use a strong password for better security.</p>
@@ -150,7 +151,7 @@
             @csrf
 
             <div class="d-flex align-items-center justify-content-between mb-4">
-                <h3><i class="fa fa-user-edit me-2"></i>Admin</h3>
+                <h3><img src="{{asset('asset-admin/img/logo.png')}}" style="width: 40px; height: 40px;" alt="Logo Admin Persil"> Admin</h3>
                 <h5>Sign In</h5>
             </div>
 

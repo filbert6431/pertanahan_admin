@@ -1,6 +1,7 @@
 <?php
 namespace App\Http\Controllers;
 
+use App\Models\jenis_penggunaan;
 use App\Models\Persil;
 use App\Models\Warga;
 use Illuminate\Http\Request;
@@ -10,22 +11,27 @@ class PersilController extends Controller
 {
     public function index(request $request)
     {
-        $filterablecolumns = ['status'];
-        $searchablecolumns = ['kode_persil', 'alamat_lahan', 'rt', 'rw', 'penggunaan'];
-        // ambil semua data persil + nama warga (relasi)
-        $dataPersil = Persil::with('pemilik')
-            ->filter($request, $filterablecolumns)
-            ->search($request, $searchablecolumns)
-            ->paginate(10)
-            ->onEachSide(2);
+        if (auth()->check()) {
 
-        return view('pages.persil.index', compact('dataPersil'));
+            $filterablecolumns = ['status'];
+            $searchablecolumns = ['kode_persil', 'alamat_lahan', 'rt', 'rw', 'penggunaan'];
+            // ambil semua data persil + nama warga (relasi)
+            $dataPersil = Persil::with('pemilik')
+                ->filter($request, $filterablecolumns)
+                ->search($request, $searchablecolumns)
+                ->paginate(10)
+                ->onEachSide(2);
+
+            return view('pages.persil.index', compact('dataPersil'));
+        }
+        return redirect()->route('halaman-login');
     }
 
     public function create()
     {
-        $wargaList = Warga::all(); // ambil semua data warga
-        return view('pages.persil.create', compact('wargaList'));
+        $jenis_penggunaan = jenis_penggunaan::all();
+        $wargaList        = Warga::all(); // ambil semua data warga
+        return view('pages.persil.create', compact('wargaList', 'jenis_penggunaan'));
     }
 
     public function store(Request $request)
@@ -34,7 +40,7 @@ class PersilController extends Controller
             'kode_persil'      => 'required|unique:persil,kode_persil',
             'pemilik_warga_id' => 'required|exists:warga,warga_id',
             'luas_m2'          => 'required|numeric',
-            'penggunaan'       => 'required',
+            'penggunaan'       => 'required|exists:jenis_penggunaan,nama_penggunaan',
             'alamat_lahan'     => 'required',
             'rt'               => 'required',
             'rw'               => 'required',
@@ -47,15 +53,18 @@ class PersilController extends Controller
 
     public function edit($id)
     {
-        $dataPersil = Persil::findOrFail($id);
-        $wargaList  = Warga::all();
-        return view('pages.persil.edit', compact('dataPersil', 'wargaList'));
+        $dataPersil       = Persil::findOrFail($id);
+        $wargaList        = Warga::all();
+        $jenis_penggunaan = jenis_penggunaan::all(); // Fetch all from jenis_penggunaan table
+
+        return view('pages.persil.edit', compact('dataPersil', 'wargaList', 'jenis_penggunaan'));
     }
 
     public function update(Request $request, $id)
     {
+
         $validated = $request->validate([
-            'kode_persil'      => 'required|string|unique:persil,kode_persil,' . $id . ',persil_id',
+            'kode_persil'      => 'required|string|max:50|unique:persil,kode_persil,' . $id . ',persil_id',
             'pemilik_warga_id' => 'required|exists:warga,warga_id',
             'luas_m2'          => 'required|numeric',
             'penggunaan'       => 'required|string|max:100',

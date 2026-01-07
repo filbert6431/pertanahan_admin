@@ -26,15 +26,14 @@
                 <div class="bg-secondary rounded-top p-4">
                     <div class="row">
                         <div class="col-12 col-sm-6 text-center text-sm-start">
-                            &copy; <a href="#">Your Site Name</a>, All Right Reserved.
+                            &copy; <a href="{{route('dashboard')}}">Admin Persil</a>
                         </div>
-                        <div class="col-12 col-sm-6 text-center text-sm-end">
+                        <div class="col-12 col-sm-5 text-center text-sm-end">
                             <!--/*** This template is free as long as you keep the footer author’s credit link/attribution link/backlink. If you'd like to use the template without the footer author’s credit link/attribution link/backlink, you can purchase the Credit Removal License from "https://htmlcodex.com/credit-removal". Thank you for your support. ***/-->
-                            Designed By <a href="https://htmlcodex.com">HTML Codex</a>
+                            Designed By <img src="{{asset('asset-admin/img/logo.png')}}"  alt="Logo Admin Persil"
+                            style="width: 40px; height: 40px;"> <a href="{{route('identitas')}}">Filbert Anggriawan</a>
 
-                            <a aria-label="Chat on WhatsApp" href="https://wa.me/1XXXXXXXXXX"> <img alt="Chat on WhatsApp" src="WhatsAppButtonGreenLarge.svg" />
-<a />
-                        </div>
+                       </div>
                     </div>
                 </div>
             </div>

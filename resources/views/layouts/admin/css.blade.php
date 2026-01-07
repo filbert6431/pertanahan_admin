@@ -1,22 +1,48 @@
 <!-- Favicon -->
-    <link href="{{ asset('asset-admin/img/favicon.ico') }}" rel="icon">
+<link href="{{ asset('asset-admin/img/favicon.ico') }}" rel="icon">
 
-    <!-- Google Web Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Roboto:wght@500;700&display=swap"
-        rel="stylesheet">
+<!-- Google Web Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Roboto:wght@500;700&display=swap"
+    rel="stylesheet">
 
-    <!-- Icon Font Stylesheet -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+<!-- Icon Font Stylesheet -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
 
-    <!-- Libraries Stylesheet -->
-    <link href="{{ asset('asset-admin/lib/owlcarousel/assets/owl.carousel.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('asset-admin/lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css') }}" rel="stylesheet" />
+<!-- Libraries Stylesheet -->
+<link href="{{ asset('asset-admin/lib/owlcarousel/assets/owl.carousel.min.css') }}" rel="stylesheet">
+<link href="{{ asset('asset-admin/lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css') }}" rel="stylesheet" />
 
-    <!-- Customized Bootstrap Stylesheet -->
-    <link href="{{ asset('asset-admin/css/bootstrap.min.css')}}" rel="stylesheet" >
+<!-- Customized Bootstrap Stylesheet -->
+<link href="{{ asset('asset-admin/css/bootstrap.min.css') }}" rel="stylesheet">
 
-    <!-- Template Stylesheet -->
-    <link href="{{ asset('asset-admin/css/style.css')}}" rel="stylesheet" >
+<!-- Template Stylesheet -->
+<link href="{{ asset('asset-admin/css/style.css') }}" rel="stylesheet">
+
+<style>
+    /* Reset margin dan padding untuk semua element */
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    .main-content {
+        margin: 0 0 0 280px !important;
+        /* margin: top right bottom left */
+        padding: 0 !important;
+        width: calc(100% - 280px) !important;
+    }
+
+    /* Pastikan tidak ada elemen lain yang menambah margin */
+    body {
+        overflow-x: hidden;
+    }
+
+    .d-flex {
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+</style>

@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('kode_persil')->unique();
 
             // foreign key column
-            $table->unsignedBigInteger('pemilik_warga_id'); // Pastikan ini ada
+            $table->unsignedInteger('pemilik_warga_id'); // Pastikan ini ada
 
             $table->double('luas_m2');
             $table->string('penggunaan');
@@ -25,11 +25,10 @@ return new class extends Migration
             $table->string('rw');
             $table->string('status')->default('pending'); // kolom status dengan default 'pending'
 
-            // constraint
-            // $table->foreign('pemilik_warga_id')
-            //       ->references('warga_id')
-            //       ->on('warga') // Pastikan nama tabel 'warga' sesuai dengan yang ada di database
-            //       ->onDelete('cascade');
+             $table->foreign('pemilik_warga_id')
+                 ->references('warga_id')
+                   ->on('warga') // Pastikan nama tabel 'warga' sesuai dengan yang ada di database
+                ->onDelete('cascade');
         });
     }
 

@@ -1,52 +1,198 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Sistem Admin Pertanahan
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Sistem manajemen pertanahan berbasis web menggunakan Laravel untuk mengelola data persil, warga, dokumen, peta, dan sengketa pertanahan.
 
-## About Laravel
+## Fitur Utama
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+### Dashboard Admin
+- **Statistik Real-Time**: Menampilkan jumlah total persil, warga, pengguna, dokumen, peta, dan sengketa.
+- **Tabel Recent Data**: Menampilkan 5 data terbaru untuk persil, warga, dan dokumen.
+- **Navigasi Mudah**: Link ke halaman detail dan daftar lengkap.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+### Manajemen Data
+- **Persil**: CRUD untuk data lahan pertanahan, termasuk kode persil, pemilik, luas, penggunaan, alamat, status.
+- **Warga**: CRUD untuk data penduduk, termasuk nama, email, password, jenis kelamin, agama, dll.
+- **User/Admin**: Manajemen pengguna sistem dengan role-based access.
+- **Dokumen Persil**: Upload dan manajemen dokumen terkait persil.
+- **Peta Persil**: Integrasi peta untuk visualisasi lahan.
+- **Sengketa Persil**: Pelaporan dan manajemen sengketa lahan.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+### Keamanan
+- **Autentikasi**: Login/logout dengan middleware checkislogin.
+- **Otorisasi**: Role-based access (admin) menggunakan middleware checkrole.
+- **Validasi Input**: Validasi data di controller dan form.
 
-## Learning Laravel
+## Teknologi yang Digunakan
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+- **Backend**: Laravel 12.37.0, PHP 8.4.12
+- **Database**: MySQL (via migrations dan Eloquent ORM)
+- **Frontend**: Blade Templates, Bootstrap 5, FontAwesome, Chart.js (untuk visualisasi)
+- **Server**: Laragon (untuk development lokal)
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+## Instalasi dan Setup
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+### Persyaratan Sistem
+- PHP >= 8.1
+- Composer
+- MySQL
+- Node.js & NPM (untuk assets jika diperlukan)
 
-## Laravel Sponsors
+### Langkah Instalasi
+1. **Clone Repository**:
+   ```bash
+   git clone <repository-url>
+   cd pertanahan_admin
+   ```
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+2. **Install Dependencies**:
+   ```bash
+   composer install
+   npm install
+   ```
 
-### Premium Partners
+3. **Konfigurasi Environment**:
+   - Copy `.env.example` ke `.env`
+   - Atur database connection di `.env`:
+     ```
+     DB_CONNECTION=mysql
+     DB_HOST=127.0.0.1
+     DB_PORT=3306
+     DB_DATABASE=pertanahan_admin
+     DB_USERNAME=root
+     DB_PASSWORD=
+     ```
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+4. **Generate Key**:
+   ```bash
+   php artisan key:generate
+   ```
 
-## Contributing
+5. **Jalankan Migrations dan Seeders**:
+   ```bash
+   php artisan migrate
+   php artisan db:seed
+   ```
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+6. **Storage Link** (untuk file uploads):
+   ```bash
+   php artisan storage:link
+   ```
+
+7. **Jalankan Server**:
+   ```bash
+   php artisan serve
+   ```
+   Akses di `http://localhost:8000`
+
+### Struktur Database
+- **users**: Tabel pengguna sistem.
+- **warga**: Data penduduk.
+- **persil**: Data lahan pertanahan.
+- **dokumen_persil**: Dokumen terkait persil.
+- **peta_persil**: Data peta lahan.
+- **sengketa_persil**: Data sengketa.
+- **admin**: Tabel admin (jika ada).
+
+### Struktur Folder
+```
+app/
+├── Http/Controllers/          # Controllers (AuthController, PersilController, dll.)
+├── Models/                    # Eloquent Models
+├── Providers/                 # Service Providers
+config/                        # Konfigurasi Laravel
+database/
+├── migrations/                # Database migrations
+├── seeders/                   # Data seeders
+public/                        # Assets publik
+resources/
+├── views/                     # Blade templates
+├── css/                       # Custom CSS
+routes/
+├── web.php                    # Route definitions
+```
+
+## Penggunaan
+
+### Login
+- Akses `/` atau `/login` untuk halaman login.
+- Default admin: email dan password dari seeder.
+
+### Dashboard
+- Setelah login, akses `/dashboard` untuk melihat statistik dan data recent.
+
+### CRUD Operations
+- Gunakan menu sidebar untuk mengakses modul persil, warga, dll.
+- Setiap modul memiliki index, create, edit, show, delete.
+
+## Logika dan Fungsi Utama
+
+### Arsitektur Aplikasi
+Sistem ini menggunakan arsitektur MVC (Model-View-Controller) Laravel:
+- **Model**: Mewakili data (Persil, Warga, dll.) dan logika bisnis.
+- **View**: Template Blade untuk UI (dashboard, form, tabel).
+- **Controller**: Menangani request, berinteraksi dengan model, dan mengirim data ke view.
+
+### Logika Dashboard
+- **Statistik**: Menggunakan `count()` pada model untuk menghitung total data. Data dikirim ke view sebagai variabel.
+- **Tabel Recent**: Query `orderBy('id', 'desc')->take(5)` untuk ambil 5 data terbaru. Relasi (misalnya `with('pemilik')`) digunakan untuk join data terkait.
+- **Responsivitas**: Layout menggunakan Bootstrap grid (col-sm-6, col-xl-3) untuk tampilan mobile-friendly.
+
+### Fungsi CRUD
+- **Create**: Form input divalidasi, data disimpan via `store()` method di controller.
+- **Read**: `index()` untuk list data, `show()` untuk detail.
+- **Update**: `edit()` untuk form, `update()` untuk simpan perubahan.
+- **Delete**: `destroy()` dengan konfirmasi.
+
+### Autentikasi dan Otorisasi
+- **Login**: Cek email/password di `AuthController`, set session.
+- **Middleware**: `checkislogin` untuk halaman yang butuh login, `checkrole:admin` untuk akses admin.
+- **Logout**: Hapus session dan redirect ke login.
+
+### Upload File
+- Menggunakan `MultipleUploadController` untuk handle multi-file upload.
+- File disimpan di `storage/app/public`, diakses via symlink `storage:link`.
+
+### Error Handling
+- Validasi input di controller (misalnya `request->validate()`).
+- Exception handling untuk database errors (misalnya column not found).
+- Redirect dengan pesan error/sukses.
+
+### Optimisasi
+- Eager loading (`with()`) untuk relasi agar query efisien.
+- Pagination di tabel besar menggunakan `paginate()`.
+- Cache untuk data statis jika diperlukan.
+
+## API Endpoints (Jika Diperlukan)
+- Sistem ini berbasis web, tapi routes dapat diakses via API jika diperlukan.
+- Contoh: `GET /api/persil` untuk list persil (perlu autentikasi).
+
+## Testing
+- Jalankan unit tests:
+  ```bash
+  php artisan test
+  ```
+- Tests ada di `tests/` folder.
+
+## Troubleshooting
+- **Error Storage Link**: Pastikan folder `storage/app/public` ada dan jalankan `php artisan storage:link`.
+- **Migration Error**: Pastikan database sudah dibuat dan kredensial benar.
+- **Permission Issues**: Atur permission folder `storage` dan `bootstrap/cache`.
+
+## Kontribusi
+- Fork repository.
+- Buat branch untuk fitur baru.
+- Commit changes dan push.
+- Buat pull request.
+
+## Lisensi
+Proyek ini menggunakan lisensi MIT.
+
+## Kontak
+Untuk pertanyaan, hubungi [email Anda] atau buat issue di repository.
+
+---
+
+Dokumentasi ini dibuat untuk memudahkan pemahaman dan maintenance proyek. Jika ada perubahan, update README.md ini.
 
 ## Code of Conduct
 

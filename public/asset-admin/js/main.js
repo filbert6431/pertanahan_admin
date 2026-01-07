@@ -10,8 +10,8 @@
         }, 1);
     };
     spinner();
-    
-    
+
+
     // Back to top button
     $(window).scroll(function () {
         if ($(this).scrollTop() > 300) {
@@ -64,7 +64,8 @@
     Chart.defaults.borderColor = "#000000";
 
 
-    // Worldwide Sales Chart
+    // Worldwide Sales Chart - Commented out to use dynamic data from blade
+    /*
     var ctx1 = $("#worldwide-sales").get(0).getContext("2d");
     var myChart1 = new Chart(ctx1, {
         type: "bar",
@@ -91,6 +92,7 @@
             responsive: true
         }
     });
+    */
 
 
     // Salse & Revenue Chart
@@ -117,7 +119,7 @@
             responsive: true
         }
     });
-    
+
 
 
     // Single Line Chart
@@ -207,6 +209,6 @@
         }
     });
 
-    
+
 })(jQuery);
 
