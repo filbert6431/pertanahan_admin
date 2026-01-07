@@ -27,7 +27,7 @@ return new class extends Migration
 
              $table->foreign('pemilik_warga_id')
                  ->references('warga_id')
-                   ->on('warga') // Pastikan nama tabel 'warga' sesuai dengan yang ada di database
+                   ->on('Warga') // Pastikan nama tabel 'warga' sesuai dengan yang ada di database
                 ->onDelete('cascade');
         });
     }
