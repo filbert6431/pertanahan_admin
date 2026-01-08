@@ -22,7 +22,8 @@
                     </div>
                 @endif
 
-                <form action="{{ route('sengketa_persil.update', $sengketa->sengketa_id) }}" method="POST" enctype="multipart/form-data">
+                <form a
+                ction="{{ route('sengketa_persil.update', $sengketa->sengketa_id) }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     @method('PUT')
 

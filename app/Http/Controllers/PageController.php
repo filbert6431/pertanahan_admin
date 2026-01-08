@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Models\dokumen_persil;
 use App\Models\peta_persil;
 use App\Models\sengketa_persil;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 
 class PageController extends Controller
@@ -45,6 +46,46 @@ class PageController extends Controller
             return view('pages.form');
         }
         return redirect()->route('halaman-login');
+    }
+
+    public function bilangan_prima($id)
+    {
+
+        if (Str::length($id) == 2) {
+
+
+        if ($id < 2) {
+            return "$id bukan bilangan prima.";
+        }
+
+        for ($i = 2; $i <= sqrt($id); $i++) {
+            if ($id % $i == 0) {
+                return "$id bukan bilangan prima.";
+            }
+        }
+        }
+
+         if (Str::length($id) == 4) {
+        $tahun_sekarang = 2025;
+        $id = $tahun_sekarang - $id;
+        return view('pages.ujiantahun', ['id' => $id]);
+         }
+         return redirect()->route('halaman_ujian');
+    }
+
+    public function tampilan_halaman(Request $request, $id)
+    {
+        if (Str::length($id) == 2) {
+            $hasil = $this->bilangan_prima($id);
+            return view('pages.hasil_ujian', ['hasil' => $hasil]);
+        }
+
+        if (Str::length($id) == 4) {
+            $hasil = $this->bilangan_prima($id);
+            return view('pages.hasil_ujian', ['hasil' => $hasil]);
+        }
+
+        return view('pages.ujiantahun');
     }
 
 }

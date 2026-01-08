@@ -20,6 +20,12 @@ Route::get('/',[AuthController::class, 'index'])->name('login-siap');
 Route::get('/auth/form_login', [AuthController::class, 'index'])->name('halaman-login');
 Route::get('/login', [AuthController::class, 'index'])->name('login');
 
+
+// UAS
+Route::get('{id}', [PageController::class, 'bilangan_prima'])->name('bilangan_prima');
+Route::post('/halaman/{id}', [PageController::class, 'tampilan_halaman'])->name('halaman_ujian');
+//
+
 // process login (posts to this route)
 Route::post('/auth/proses-login', [AuthController::class, 'login'])->name('login-siap');
 
