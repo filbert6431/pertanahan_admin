@@ -1,3 +1,5 @@
+
+
 <?php
 
 use Illuminate\Support\Facades\DB;
@@ -27,7 +29,7 @@ Route::get('/login', [AuthController::class, 'index'])->name('login');
 // //
 
 // process login (posts to this route)
-Route::post('/auth/proses-login', [AuthController::class, 'login'])->name('login-siap');
+Route::post('/auth/proses-login', [AuthController::class, 'login'])->name('login.proses');
 
 // logout for this simple flow
 Route::get('/auth/logout', [AuthController::class, 'logout'])->name('auth.logout');
