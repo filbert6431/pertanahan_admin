@@ -19,7 +19,7 @@
         </div>
         <div class="flex-grow-1">
             <h1 class="h3 mb-1" style="
-                background: linear-gradient(135deg, #ff4d4d 0%, #ff0000 100%);
+                background: linear-gradient(f135deg, #ff4d4d 0%, #ff0000 100%);
                 -webkit-background-clip: text;
                 -webkit-text-fill-color: transparent;
                 background-clip: text;

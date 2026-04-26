@@ -113,6 +113,7 @@ Route::get('/peta-persil/edit/{peta_id}', [PetaPersilController::class, 'edit'])
 Route::put('/peta-persil/update/{peta_id}', [PetaPersilController::class, 'update'])->name('peta_persil.update');
 Route::delete('/peta-persil/destroy/{peta_id}', [PetaPersilController::class, 'destroy'])->name('peta_persil.destroy');
 
+
 });
 });
 
